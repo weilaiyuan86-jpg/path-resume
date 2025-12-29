@@ -1,17 +1,18 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  darkMode: ["class"],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}"
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        brand: {
+          blue: '#2563eb',
+          orange: '#f97316',
+        }
+      }
+    },
   },
-  plugins: [require("tailwindcss-animate")]
-};
-
-export default config;
+  plugins: [],
+}
