@@ -1,23 +1,22 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import './globals.css';
+import { ClerkProvider } from '@clerk/nextjs';
+import { LanguageProvider } from '@/context/LanguageContext'; // 引入刚才创建的 Provider
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body>
-          <header className="fixed top-6 right-10 z-50">
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold text-sm">Sign In</button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/"/>
-            </SignedIn>
-          </header>
-          {children}
-        </body>
-      </html>
+      <LanguageProvider> 
+        <html lang="en">
+          <body className="antialiased bg-[#f8faff]">
+            {/* 这里包裹后，所有的子页面 children 都能通过 useLanguage() 获取当前语言 */}
+            {children}
+          </body>
+        </html>
+      </LanguageProvider>
     </ClerkProvider>
-  )
+  );
 }
