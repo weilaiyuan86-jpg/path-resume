@@ -1,76 +1,61 @@
-import React from 'react';
+'use client';
+import { useLanguage } from '@/context/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function BuilderPage() {
+  const { dict } = useLanguage(); // 实时获取当前语言字典
+
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* 顶部状态栏 */}
-      <header className="bg-white border-b px-8 py-4 flex justify-between items-center sticky top-0 z-10">
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Active Session:</span>
-          <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-full border border-green-100 italic">SECURE_TUNNEL_ESTABLISHED</span>
+    <div className="min-h-screen p-8">
+      {/* 右上角工具栏 */}
+      <div className="flex justify-end items-center gap-4 mb-8">
+        <LanguageSwitcher />
+        <div className="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-black tracking-widest border border-indigo-100 italic">
+          ● LIVE ENGINE
         </div>
-        <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Drafts</button>
-          <button className="px-4 py-2 text-sm font-bold bg-slate-900 text-white rounded-lg shadow-sm">Export PDF</button>
-        </div>
-      </header>
+      </div>
 
-      <main className="max-w-7xl mx-auto p-8 grid grid-cols-12 gap-8">
-        {/* 左侧：Identity Matrix 编辑区 */}
-        <div className="col-span-12 lg:col-span-7 space-y-8">
-          <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
-              <h2 className="text-2xl font-bold text-slate-800">Identity Matrix</h2>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Given Name</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="John" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Family Name</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="Doe" />
-              </div>
-              <div className="col-span-2 space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Professional Title</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="Senior Software Engineer @ FAANG" />
-              </div>
-            </div>
-          </section>
+      <div className="grid grid-cols-12 gap-8">
+        {/* 身份矩阵编辑区 */}
+        <div className="col-span-8 bg-white rounded-[2.5rem] p-12 shadow-sm border border-slate-50">
+          <h2 className="text-4xl font-black text-slate-900 mb-2">{dict.identityMatrix}</h2>
+          <p className="text-slate-400 font-medium mb-12">{dict.identityDesc}</p>
+          
+          <div className="grid grid-cols-2 gap-8">
+            <InputGroup label={dict.givenName} placeholder="Alex" />
+            <InputGroup label={dict.familyName} placeholder="Chen" />
+          </div>
+
+          <button className="mt-12 w-full py-5 bg-[#0f172a] text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform">
+            <span>📥</span> {dict.exportBtn}
+          </button>
         </div>
 
-        {/* 右侧：审计面板 */}
-        <div className="col-span-12 lg:col-span-5 space-y-8">
-          <section className="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-orange-400">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-              </span>
-              FAANG Protocol Audit
-            </h2>
-            
-            <div className="space-y-6">
-              {[
-                { label: "Auth Email Format", status: "Passed", color: "text-green-400" },
-                { label: "US Location Syntax", status: "Warning", color: "text-orange-400" },
-                { label: "AI Matching Score", status: "88%", color: "text-blue-400" }
-              ].map((item, i) => (
-                <div key={i} className="flex justify-between items-center border-b border-slate-800 pb-4">
-                  <span className="text-slate-400 font-medium">{item.label}</span>
-                  <span className={`font-mono font-bold ${item.color}`}>{item.status}</span>
-                </div>
-              ))}
+        {/* 审计面板 */}
+        <div className="col-span-4">
+          <div className="bg-white rounded-[2rem] p-8 border border-slate-100">
+            <h3 className="text-[10px] font-black tracking-[0.2em] text-slate-300 mb-8 uppercase">
+              {dict.auditTitle}
+            </h3>
+            {/* 审计项... */}
+            <div className="mt-10 pt-8 border-t border-slate-50 flex items-center justify-between">
+              <div className="text-xs font-black text-emerald-500 uppercase tracking-tighter">
+                80% {dict.matched}
+              </div>
+              {/* 圆形进度条组件... */}
             </div>
-            
-            <button className="w-full mt-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-2xl font-bold transition-all shadow-lg shadow-orange-900/20">
-              Run Full Diagnostic
-            </button>
-          </section>
+          </div>
         </div>
-      </main>
+      </div>
+    </div>
+  );
+}
+
+function InputGroup({ label, placeholder }: any) {
+  return (
+    <div className="space-y-3">
+      <label className="text-[10px] font-black text-slate-400 tracking-widest uppercase">{label}</label>
+      <input className="w-full bg-[#f8faff] border-none rounded-2xl p-5 text-slate-900 font-bold placeholder:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition" placeholder={placeholder} />
     </div>
   );
 }
