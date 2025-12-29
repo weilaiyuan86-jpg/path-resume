@@ -1,76 +1,71 @@
-import React from 'react';
-
-export default function BuilderPage() {
+export default function Editor() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* 顶部状态栏 */}
-      <header className="bg-white border-b px-8 py-4 flex justify-between items-center sticky top-0 z-10">
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Active Session:</span>
-          <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-full border border-green-100 italic">SECURE_TUNNEL_ESTABLISHED</span>
-        </div>
-        <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Drafts</button>
-          <button className="px-4 py-2 text-sm font-bold bg-slate-900 text-white rounded-lg shadow-sm">Export PDF</button>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto p-8 grid grid-cols-12 gap-8">
-        {/* 左侧：Identity Matrix 编辑区 */}
-        <div className="col-span-12 lg:col-span-7 space-y-8">
-          <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
-              <h2 className="text-2xl font-bold text-slate-800">Identity Matrix</h2>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Given Name</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="John" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Family Name</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="Doe" />
-              </div>
-              <div className="col-span-2 space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Professional Title</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition" placeholder="Senior Software Engineer @ FAANG" />
-              </div>
-            </div>
-          </section>
+    <div className="grid grid-cols-12 gap-8">
+      {/* 中间编辑区 */}
+      <div className="col-span-8 bg-white rounded-[2.5rem] border border-slate-100 p-12 shadow-sm">
+        <h2 className="text-3xl font-black mb-2">Identity Matrix</h2>
+        <p className="text-slate-400 mb-10">Refine your core contact information for global recruitment standard.</p>
+        
+        <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+          <InputGroup label="GIVEN NAME" placeholder="Alex" />
+          <InputGroup label="FAMILY NAME" placeholder="Chen" />
+          <InputGroup label="PREFERRED NAME / ALIAS" placeholder="Alex" />
+          <InputGroup label="PROFESSIONAL EMAIL" placeholder="alex.chen@university.edu" />
+          <InputGroup label="US PHONE" placeholder="(206) 555-0123" />
+          <InputGroup label="CURRENT BASE (CITY, ST)" placeholder="Seattle, WA" />
         </div>
 
-        {/* 右侧：审计面板 */}
-        <div className="col-span-12 lg:col-span-5 space-y-8">
-          <section className="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-orange-400">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-              </span>
-              FAANG Protocol Audit
-            </h2>
-            
-            <div className="space-y-6">
-              {[
-                { label: "Auth Email Format", status: "Passed", color: "text-green-400" },
-                { label: "US Location Syntax", status: "Warning", color: "text-orange-400" },
-                { label: "AI Matching Score", status: "88%", color: "text-blue-400" }
-              ].map((item, i) => (
-                <div key={i} className="flex justify-between items-center border-b border-slate-800 pb-4">
-                  <span className="text-slate-400 font-medium">{item.label}</span>
-                  <span className={`font-mono font-bold ${item.color}`}>{item.status}</span>
-                </div>
-              ))}
-            </div>
-            
-            <button className="w-full mt-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-2xl font-bold transition-all shadow-lg shadow-orange-900/20">
-              Run Full Diagnostic
-            </button>
-          </section>
+        <button className="mt-12 w-full py-5 bg-[#0f172a] text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition">
+          📥 EXPORT MASTER CV
+        </button>
+      </div>
+
+      {/* 右侧审计面板 */}
+      <div className="col-span-4 space-y-6">
+        <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm">
+          <div className="flex justify-between items-center mb-8">
+            <h3 className="text-xs font-black tracking-widest text-slate-400">FAANG PROTOCOL AUDIT</h3>
+            <span className="text-slate-300">🛡️</span>
+          </div>
+
+          <div className="space-y-6">
+            <AuditItem label="Auth Email Format" status="VERIFIED" color="text-emerald-500" />
+            <AuditItem label="US Location Syntax" status="VERIFIED" color="text-emerald-500" />
+            <AuditItem label="Quantified Impacts (3+)" status="ACTION REQUIRED" color="text-slate-300" />
+            <AuditItem label="Action Verb Priority" status="VERIFIED" color="text-emerald-500" />
+            <AuditItem label="Technical Density (10+)" status="VERIFIED" color="text-emerald-500" />
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-slate-50 flex items-center justify-between">
+            <div className="text-xs font-bold text-emerald-500">80% MATCHED</div>
+            <div className="w-12 h-12 rounded-full border-4 border-emerald-500 flex items-center justify-center font-black text-xs">80</div>
+          </div>
         </div>
-      </main>
+      </div>
+    </div>
+  );
+}
+
+// 辅助组件
+function InputGroup({ label, placeholder }: { label: string, placeholder: string }) {
+  return (
+    <div className="space-y-2">
+      <label className="text-[10px] font-black text-slate-400 tracking-wider">{label}</label>
+      <input className="w-full bg-[#f8faff] border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-indigo-500 transition" placeholder={placeholder} />
+    </div>
+  );
+}
+
+function AuditItem({ label, status, color }: { label: string, status: string, color: string }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div className={`w-8 h-8 rounded-lg ${color.includes('emerald') ? 'bg-emerald-50' : 'bg-slate-50'} flex items-center justify-center text-xs`}>
+        {color.includes('emerald') ? '✓' : '○'}
+      </div>
+      <div className="flex-1">
+        <p className="text-sm font-bold text-slate-700">{label}</p>
+        <p className={`text-[10px] font-black tracking-tighter ${color}`}>{status}</p>
+      </div>
     </div>
   );
 }
