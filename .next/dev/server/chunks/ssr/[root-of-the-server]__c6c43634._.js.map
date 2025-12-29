@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Administrator/Desktop/path-resume/app/page.tsx"],"sourcesContent":["export default function Home() {\n  return (\n    <main className=\"p-6\">\n      <h1 className=\"text-2xl font-bold\">Next.js 项目已初始化</h1>\n    </main>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,2QAAC;QAAK,WAAU;kBACd,cAAA,2QAAC;YAAG,WAAU;sBAAqB;;;;;;;;;;;AAGzC"}}]
+}
