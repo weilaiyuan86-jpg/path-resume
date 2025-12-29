@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 添加一些平滑滚动和基础背景色 */
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
